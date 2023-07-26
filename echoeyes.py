@@ -190,7 +190,7 @@ with open("hosts.txt", "r") as f:
                 executor.map(cloudflare, hosts)
                 executor.map(ping_url, hosts)
         elif choice == "2":
-print(f"{blue}you selected {green}Cloudfront{blue} GOOD LUCK\n")
+            print(f"{blue}you selected {green}Cloudfront{blue} GOOD LUCK\n")
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 executor.map(cloudfront, hosts)
                 executor.map(ping_url, hosts)
