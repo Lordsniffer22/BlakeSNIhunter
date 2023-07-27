@@ -43,7 +43,7 @@ def cloudflare(url):
         try: 
             
             response = request.get(httpwebsite)
-            if response.status_code == 200 and response.headers["Server"] == "cloudflare":
+            if response.status_code == 200 or response.headers["Server"] == "cloudflare":
                 print(count, f"{green}[working] {blue}[{url}]{white}")
             else:
                 print(count, f"{red}[N/W][{url}]{white}")
@@ -64,7 +64,7 @@ def cloudfront(url):
         try: 
             
             response = request.get(httpwebsite)
-            if response.status_code == 200 and response.headers["Server"] == "cloudfront" or response.headers["Server"] == "AmazonS3":
+            if response.status_code == 200 or response.headers["Server"] == "cloudfront" or response.headers["Server"] == "AmazonS3":
                 print(count, f"{green}[working] {blue}[{url}]{white}")
             else:
                 print(count, f"{red}[N/W][{url}]{white}")
@@ -85,7 +85,7 @@ def nginx(url):
             
             response = request.get(httpwebsite)
             server = response.headers["Server"]
-            if response.status_code == 200 and "nginx" in server:
+            if response.status_code == 200 or "nginx" in server:
                 print(count, f"{green}[working] {blue}[{url}]{white}")
             else:
                 print(count, f"{red}[N/W][{url}]{white}")
@@ -107,7 +107,7 @@ def apache(url):
             
             response = request.get(httpwebsite)
             server = response.headers["Server"]
-            if response.status_code == 200 and "Apache" in server:
+            if response.status_code == 200 or "Apache" in server:
                 print(count, f"{green}[working] {blue}[{url}]{white}")
             else:
                 print(count, f"{red}[N/W][{url}]{white}")
@@ -129,7 +129,7 @@ def haproxy(url):
             
             response = request.get(httpwebsite)
             server = response.headers["Server"]
-            if response.status_code == 200 and "HAProxy" in server:
+            if response.status_code == 200 or "HAProxy" in server:
                 print(count, f"{green}[working] {blue}[{url}]{white}")
             else:
                 print(count, f"{red}[N/W][{url}]{white}")
@@ -144,9 +144,9 @@ def ping_url(url):
     try:
         ping_cmd = ["ping", "-c", "1", url]
         subprocess.run(ping_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
-        print(count, f"{green}[reachable] {blue}[{url}]{white}")
+        print(count, f"{green}[ONLINE] {blue}[{url}]{white}")
     except subprocess.CalledProcessError:
-        print(count, f"{red}[unreachable][{url}]{white}")
+        print(count, f"{red}[OFFLINE][{url}]{white}")
     except Exception as e:
         print(count, f"{red}[ERROR][{url}]{white}")
         print(e)
